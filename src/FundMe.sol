@@ -9,12 +9,7 @@ import {PriceConverter} from "./PriceConverter.sol";
 // 3. Interfaces, Libraries, Contracts
 error FundMe__NotOwner();
 
-/**
- * @title A sample Funding Contract
- * @author Patrick Collins
- * @notice This contract is for creating a sample funding contract
- * @dev This implements price feeds as our library
- */
+ 
 contract FundMe {
     // Type Declarations
     using PriceConverter for uint256;
@@ -28,26 +23,18 @@ contract FundMe {
 
     // Events (we have none!)
 
-    // Modifiers
+    
     modifier onlyOwner() {
         // require(msg.sender == i_owner);
         if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
     }
 
-    // Functions Order:
-    //// constructor
-    //// receive
-    //// fallback
-    //// external
-    //// public
-    //// internal
-    //// private
-    //// view / pure
+ 
 
-    constructor(address priceFeed) {
-        s_priceFeed = AggregatorV3Interface(priceFeed);
+    constructor(address priceFeed) {        
         i_owner = msg.sender;
+        s_priceFeed = AggregatorV3Interface(priceFeed);
     }
 
     /// @notice Funds our contract based on the ETH/USD price
@@ -83,15 +70,7 @@ contract FundMe {
         require(success);
     }
 
-    /**
-     * Getter Functions
-     */
-
-    /**
-     * @notice Gets the amount that an address has funded
-     *  @param fundingAddress the address of the funder
-     *  @return the amount funded
-     */
+     
     function getAddressToAmountFunded(address fundingAddress) public view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
     }
